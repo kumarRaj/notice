@@ -1,30 +1,30 @@
 /* --- Prep ---- */
 var fs = require('fs');
 var http = require('http');
-// var notice1 = {};
-// notice1.sender = "Kavita";
-// notice1.date = new Date(2001,1,2);
-// notice1.subject = "Welcome";
-// notice1.message = "Hi, Welcome to this service";
-
-// var repository = [];
-// repository.push(notice1);
-// var notice2 = {};
-
-// notice2.sender = "Suraj";
-// notice2.date = new Date(2013,1,2);
-// notice2.subject = "First Use";
-// notice2.message = "I love this notice Board";
-// repository.push(notice2);
-
+var url = require('url');
 /* --- Prep ---- */
+
+var getNotice = function(request,response){
+  var notice = {};
+  address = url.parse(request.url,true);
+  notice.sender = address.hostname;
+  notice.subject = address.query.subject;
+  notice.message = address.query.message;
+  notice.date = new Date();
+  return notice;
+}
+
+var addNotice =function(request,response){
+  notice = getNotice(request,response)
+  repository = JSON.parse(fs.readFileSync("notices.txt"));
+  repository.push(notice);
+  fs.writeFileSync('notices.txt',JSON.stringify(repository));
+  response.write("Notice put on board. Go to this URL to see notice http://10.4.31.199:8085/see")
+}
 
 var displayNotice = function(request, response){
   repository = JSON.parse(fs.readFileSync("notices.txt"));
   response.write("Hello World");
- //  repository.forEach(function(notice){
- //    response.write(JSON.stringify(notice));
- //  })
 	repository.forEach(function(notice){
     response.write("Author : " + notice.sender + '\n');
     response.write("Date : " + notice.date + '\n');
@@ -32,9 +32,13 @@ var displayNotice = function(request, response){
     response.write(notice.message + '\n\n');
   });
 }
-var path = "see";
+var path;
 var server = function(request, response){
   response.writeHead(200, {"Content-Type": "text/plain"});
+  address = url.parse(request.url,true);
+  path = address.pathname.slice(1);
+  if(path == "post")
+    addNotice(request,response);
   if(path == "see"){
     displayNotice(request,response);
   }
