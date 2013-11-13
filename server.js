@@ -6,8 +6,9 @@ var url = require('url');
 
 var getNotice = function(request,response){
   var notice = {};
+  // if(notice.message)
   address = url.parse(request.url,true);
-  notice.sender = address.hostname;
+  notice.sender = address.query.author;
   notice.subject = address.query.subject;
   notice.message = address.query.message;
   notice.date = new Date();
@@ -19,13 +20,18 @@ var addNotice =function(request,response){
   repository = JSON.parse(fs.readFileSync("notices.txt"));
   repository.push(notice);
   fs.writeFileSync('notices.txt',JSON.stringify(repository));
-  response.write("Notice put on board. Go to this URL to see notice http://10.4.31.199:8085/see")
+  response.writeHead(200, {"Content-Type":"text/html"});
+  response.write("<html><body>");
+  response.write('<a href = "http://10.4.31.199:8085/see">Notice added. Click to see the NOTICE BOARD</a>');
+  response.write("</body></html>");
 }
 
 var displayNotice = function(request, response){
   repository = JSON.parse(fs.readFileSync("notices.txt"));
-  response.write("Hello World");
-	repository.forEach(function(notice){
+  response.write("NOTICE BOARD"+'\n\n');
+  repository.reverse();
+	repository.forEach(function(notice,index){
+    response.write("ID : " + (index + 1) + '\n');
     response.write("Author : " + notice.sender + '\n');
     response.write("Date : " + notice.date + '\n');
     response.write("Subject : " + notice.subject + '\n');
@@ -34,7 +40,7 @@ var displayNotice = function(request, response){
 }
 var path;
 var server = function(request, response){
-  response.writeHead(200, {"Content-Type": "text/plain"});
+  response.writeHead(200, {"Content-Type":"text/plain"});
   address = url.parse(request.url,true);
   path = address.pathname.slice(1);
   if(path == "post")
