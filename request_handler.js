@@ -2,7 +2,8 @@ var fs = require('fs');
 var url = require('url');
 var http = require('http');
 var home = fs.readFileSync("./notice_files/html/home.html",'utf-8');
-
+var viewnotice = fs.readFileSync("./notice_files/html/viewNotice.html",'utf-8')
+var noticeBoard = fs.existsSync && JSON.parse(fs.readFileSync('./notice_files/dataBase/notices.json','utf-8')) || [];
 home = home.replace(/{status}/,"display:none;");
 var loginDetails = JSON.parse(fs.readFileSync("./notice_files/dataBase/loginDetails.json"));
 var addNotice = fs.readFileSync('./notice_files/html/addnotice.html');
@@ -28,10 +29,8 @@ var handler = {};
 	res.end();
 };
 var addNewNotice = function(res,notice){
-	var notices = fs.readFileSync('notices.txt');
-    noticeBoard = JSON.parse(notices);
     noticeBoard.push(notice);
-    fs.writeFileSync('notices.txt',JSON.stringify(noticeBoard));
+    fs.writeFile('./notice_files/dataBase/notices.json',JSON.stringify(noticeBoard));
     res.write('<a href = "/see">Notice added. Click to see the NOTICE BOARD</a>');
     res.end();
 }
@@ -48,25 +47,22 @@ handler['/login'] = function(req,res){
     http.request(options);
     handler['/'](req,res);
 }
-handler['/post'] = function(req,res){
-    res.writeHead(200, {"Content-Type":"text/html"});
-	res.write(addNotice);
-  	res.end();	
-    return 1;
-};
+
 handler['/see'] = function(req,res){
-	var notices = fs.readFileSync('notices.txt');
- 	noticeBoard = JSON.parse(notices);
-    res.writeHead(200, {"Content-Type":"text/plain"});
-    res.write("NOTICE BOARD"+'\n\n');
+    res.writeHead(200, {"Content-Type":"text/html"});
+    var notices = [];
     noticeBoard.reverse();
   	noticeBoard.forEach(function(notice,index){
-	    res.write("ID : " + (index + 1) + '\n');
-	    res.write("Author : " + notice.sender + '\n');
-	    res.write("Date : " + notice.date + '\n');
-	    res.write("Subject : " + notice.subject + '\n');
-	    res.write(notice.message + '\n\n');
+	    notice = "ID : " + (index + 1) + '\n' +
+	    "Author : " + notice.sender + '\n' +
+	    "Date : " + notice.date + '\n' +
+	    "Subject : " + notice.subject + '\n' + 
+	    notice.message + '\n';
+        // console.log(notice);
+        notice = notice.replace(/\n/g,'<br/>');
+        notices.push(notice);
   	});
+    res.write(viewnotice.replace(/{TEXT}/,notices.join('<br/>')));
   	res.end();	
 
 };
