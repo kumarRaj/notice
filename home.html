@@ -1,10 +1,10 @@
 <html>
 <head>
-	<title>myNoticeBoard</title>>
+	<title>myNoticeBoard</title>
 	<style>
 body
 { 
-background-image:url('/bg.jpg');
+background-image:url('bg.jpg');
 background-repeat:no-repeat;
 background-attachment:fixed;
 background-position:bottom; 
@@ -12,15 +12,15 @@ background-position:bottom;
 </style>
 </head>
 <body bgcolor= "#40adad">
-    <form>
+    <form action = "login" method="get">
     </br></br>
 <fieldset>
   <legend align ="center">welcome to <b>Notice board</b>. Log In, Sign Up</legend>
     <b>MY NOTICEBOARD</b><button type = "button" >Sign up</button>
-    <input type="button" value="LogIn" style="float: right;" onclick="check(this.form)"/>
-    <input type="password" name="pswrd" value="" style="float:right;"/>
+    <input type="submit" value="LogIn" style="float: right;" onclick="check(this.form)"/>
+    <input type="password" name="passwd" value="" style="float:right;"/>
     <label for="Password" style="float: right">Password: </label>
-    <input type="text" name="UID" value="" style="float:right;"/>
+    <input type="text" name="userID" value="" style="float:right;"/>
     <label for="UserId" style="float: right">UserId: </label>
 
 
@@ -28,16 +28,15 @@ background-position:bottom;
 </form>
 <script language="javascript">
     function check(form){
-        if(form.UID.value == "tanbir" && form.pswrd.value == "tanbir")
-            window.open('one.html')
-        else
-            alert("Error Password or Username")
+        if(form.UID.value == "" || form.pswrd.value == "")
+            alert("Enter Password or Username")
     }
     </script>
 <br/><br/>
-<b><a href="http://10.4.31.199:8085/see">View all notices </a></b></br>
-<b><a href="http://10.4.31.199:8085/post">Post your notice </a></b>
-
+<div id = "loggedInOptions" style={status}>
+<b><a href="/see">View all notices </a></b></br>
+<b><a href="/post">Post your notice </a></b>
+</div>
 </body>
 </html>
 
