@@ -14,25 +14,21 @@ var getNotice = function(req,res){
     if(notice.sender && notice.subject && notice.message && notice.date)
 	    return notice;
     return 0 
-    // return notice;
 }
 var handler = {};
 	handler['/'] = function(req,res){
 	res.writeHead(200, {"Content-Type":"text/html"});
 	var notice = getNotice(req,res);
-	if(notice){
-		addNewNotice(res,notice);
-	}
+	notice && addNewNotice(res,notice);
 	res.write(home);
 	res.end();
 };
 var addNewNotice = function(res,notice){
 	var notices = fs.readFileSync('notices.txt');
-	// console.log(notice);
     noticeBoard = JSON.parse(notices);
     noticeBoard.push(notice);
     fs.writeFileSync('notices.txt',JSON.stringify(noticeBoard));
-    res.write('<a href = "http://10.4.31.199:8085/see">Notice added. Click to see the NOTICE BOARD</a>');
+    res.write('<a href = "http://localhost:8085/see">Notice added. Click to see the NOTICE BOARD</a>');
     res.end();
 }
 handler['/post'] = function(req,res){
@@ -46,7 +42,6 @@ handler['/see'] = function(req,res){
     res.writeHead(200, {"Content-Type":"text/plain"});
     res.write("NOTICE BOARD"+'\n\n');
     noticeBoard.reverse();
- 	// console.log(noticeBoard);
   	noticeBoard.forEach(function(notice,index){
 	    res.write("ID : " + (index + 1) + '\n');
 	    res.write("Author : " + notice.sender + '\n');
