@@ -1,12 +1,13 @@
 var fs = require('fs');
 var url = require('url');
-var home = fs.readFileSync("home.html",'utf-8');
+var http = require('http');
+var home = fs.readFileSync("./notice_files/html/home.html",'utf-8');
 
 home = home.replace(/{status}/,"display:none;");
-var loginDetails = JSON.parse(fs.readFileSync("loginDetails.json"));
-var addNotice = fs.readFileSync('addnotice.html');
+var loginDetails = JSON.parse(fs.readFileSync("./notice_files/dataBase/loginDetails.json"));
+var addNotice = fs.readFileSync('./notice_files/html/addnotice.html');
 var contentType = {html:'text/html',jpg:'image/jpeg',ico:'image/x-icon'};
-var bg_jpg = fs.readFileSync('./bg.jpg');
+var bg_jpg = fs.readFileSync('./notice_files/images/bg.jpg');
 var getNotice = function(req,res){
     var notice = {};
     address = url.parse(req.url,true);
@@ -37,13 +38,14 @@ var addNewNotice = function(res,notice){
 handler['/login'] = function(req,res){
     userDetails = url.parse(req.url,true).query;
     var user = {};
-    // var hide = ;
-    // var show = 'div id = "loggedInOptions" style="display: block;"'
+    var options = {hostname: 'localhost',
+                port: 8085,
+    };
     user.id = userDetails.userID;
     user.passwd = userDetails.passwd;
     console.log(loginDetails,user.id);
     (loginDetails[user.id] && loginDetails[user.id].passwd == user.passwd) && (home = home.replace(/none/,'block'))||alert("Invalid credentials");
-    console.log(home);
+    http.request(options);
     handler['/'](req,res);
 }
 handler['/post'] = function(req,res){
@@ -68,7 +70,7 @@ handler['/see'] = function(req,res){
   	res.end();	
 
 };
-handler['/bg.jpg'] = function(req,res){
+handler['/images/bg.jpg'] = function(req,res){
 	  res.writeHead(200,{'Content-Type': contentType.jpg});
     res.write(bg_jpg); 
   	res.end();	
