@@ -1,6 +1,9 @@
 var fs = require('fs');
 var url = require('url');
-var home = fs.readFileSync("home.html");
+var home = fs.readFileSync("home.html",'utf-8');
+
+home = home.replace(/{status}/,"display:none;");
+var loginDetails = JSON.parse(fs.readFileSync("loginDetails.json"));
 var addNotice = fs.readFileSync('addnotice.html');
 var contentType = {html:'text/html',jpg:'image/jpeg',ico:'image/x-icon'};
 var bg_jpg = fs.readFileSync('./bg.jpg');
@@ -13,7 +16,7 @@ var getNotice = function(req,res){
     notice.date = new Date();
     if(notice.sender && notice.subject && notice.message && notice.date)
 	    return notice;
-    return 0 
+    return 0;
 }
 var handler = {};
 	handler['/'] = function(req,res){
@@ -28,13 +31,26 @@ var addNewNotice = function(res,notice){
     noticeBoard = JSON.parse(notices);
     noticeBoard.push(notice);
     fs.writeFileSync('notices.txt',JSON.stringify(noticeBoard));
-    res.write('<a href = "http://localhost:8085/see">Notice added. Click to see the NOTICE BOARD</a>');
+    res.write('<a href = "/see">Notice added. Click to see the NOTICE BOARD</a>');
     res.end();
+}
+handler['/login'] = function(req,res){
+    userDetails = url.parse(req.url,true).query;
+    var user = {};
+    // var hide = ;
+    // var show = 'div id = "loggedInOptions" style="display: block;"'
+    user.id = userDetails.userID;
+    user.passwd = userDetails.passwd;
+    console.log(loginDetails,user.id);
+    (loginDetails[user.id] && loginDetails[user.id].passwd == user.passwd) && (home = home.replace(/none/,'block'))||alert("Invalid credentials");
+    console.log(home);
+    handler['/'](req,res);
 }
 handler['/post'] = function(req,res){
     res.writeHead(200, {"Content-Type":"text/html"});
 	res.write(addNotice);
   	res.end();	
+    return 1;
 };
 handler['/see'] = function(req,res){
 	var notices = fs.readFileSync('notices.txt');
@@ -53,7 +69,7 @@ handler['/see'] = function(req,res){
 
 };
 handler['/bg.jpg'] = function(req,res){
-	res.writeHead(200,{'Content-Type': contentType.jpg});
+	  res.writeHead(200,{'Content-Type': contentType.jpg});
     res.write(bg_jpg); 
   	res.end();	
 };
