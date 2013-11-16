@@ -1,12 +1,26 @@
 <html>
-<head>
-	<title></title>
-	<frameset rows = "15%,*">
-	<frame src = "name.html" noresize = "noresize">
-	<frame src = "userDetails.html">
-	</frameset>
-
-</head>
-<body>
+<body bgcolor = "#40adad" text = "white">
+	<div >
+	    <form action = "signup" method="get">
+			<h1><b>NOTICE BOARD</b><h1><br/>
+	   		<input type="submit" value="Log into existing account " style="float: right;">
+	    </form>
+	</div>
+	<div align ="center" >
+		<hr/>
+		<h1><b>Sign Up</b>
+		<br><br>
+		<form method ="get" action = "signUpInfo"> 	
+	  	<input type="text" name="Uname" required = "true" placeholder="Your name" style="float: center;" size = "40" autofocus><br><br>
+	  	<input type="text" name="Email" required = "true"placeholder="Your Email address" style="float: center;" size = "40" autofocus>
+	  	<br><br>
+	  	<input type="text" name="cEmail" required = "true"placeholder="Re-enter Email address" style="float: center;" size = "40" autofocus>
+	  	<br><br>
+	  	<input type="password" name="Npwd" required = "true"placeholder="New Password" style="float: center;" size = "40"><br><br>
+	  	<input type="password" name="Cpwd" required = "true"placeholder="Confirm Password" style="float: center;" size = "40"><br><br>
+	  	<input type = "submit" value ="Sign Up" onclick = ""></input>
+	  	</form>
+	  	{Error}
+	</div>	
 </body>
 </html>

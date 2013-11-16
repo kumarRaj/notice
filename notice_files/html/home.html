@@ -1,7 +1,7 @@
 <html>
 <head>
-	<title>myNoticeBoard</title>
-	<style>
+    <title>myNoticeBoard</title>
+    <style>
 body
 { 
 background-image:url('images/bg.jpg');
@@ -12,18 +12,25 @@ background-position:bottom;
 </style>
 </head>
 <body bgcolor= "#40adad">
-    <form action = "login" method="get">
     </br></br>
-<fieldset>
-  <legend align ="center">welcome to <b>Notice board</b>. Log In, Sign Up</legend>
-    <b>MY NOTICEBOARD</b><button type = "button" >Sign up</button>
-    <input type="submit" value="LogIn" style="float: right;" onclick="check(this.form)"/>
-    <input type="password" name="passwd" value="" style="float:right;"/>
-    <label for="Password" style="float: right">Password: </label>
-    <input type="text" name="userID" value="" style="float:right;"/>
-    <label for="UserId" style="float: right">UserId: </label>
+<fieldset id = "logInOption" style={status1}>
+    <legend align ="center">welcome to <b>Notice board</b>. Log In, Sign Up</legend>
+    <form action = "signUp" method="get">
+        <b>MY NOTICEBOARD</b><button type = "submit">Sign up</button>
+    </form>
+    <form action = "login" method="get">
+       <input type="submit" value="LogIn" style="float: right;" onclick="check(this.form)"/>
+       <input type="password" name="passwd" value="" style="float:right;"/>
+       <label for="Password" style="float: right">Password: </label>
+       <input type="text" name="userID" value="" style="float:right;"/>
+       <label for="UserId" style="float: right">UserId: </label>
+    </form>
 </fieldset>
-</form>
+<div  id = 'logout', style = {status2}>   
+    <form action = "logout" method="get">
+        <input type="submit" value="LogOut" style="float: right;" />
+    </form>
+</div>
 <script language="javascript">
     function check(form){
         if(form.UID.value == "" || form.pswrd.value == "")
@@ -31,10 +38,9 @@ background-position:bottom;
     }
     </script>
 <br/><br/>
-<div id = "loggedInOptions" style={status}>
+<div id = "loggedInOptions" style={status3}>
 <b><a href="/see">View all notices </a></b></br>
 <b><a href="/post">Post your notice </a></b>
 </div>
 </body>
 </html>
-
