@@ -65,7 +65,7 @@ handler['/signUp'] = function(req,res){
 handler['/signUpInfo'] = function(req,res){
     var errorMsg="Pas<div id=\"reg_error_inner\" class=\"_58mo\">";
     var errorlength = errorMsg.length+37;
-    var  userInfo = {};
+    // var userInfo = {};
     var address = url.parse(req.url,true);
     (address.query.Npwd!=address.query.Cpwd)&& (errorMsg += " password ");
     (address.query.Email!=address.query.cEmail)&& (errorMsg += " Email Address ");
@@ -75,12 +75,10 @@ handler['/signUpInfo'] = function(req,res){
         res.write(pages.signUp.replace(/{Error}/,errorMsg));
     else{
         userID = address.query.uName;
-        userInfo[userID] = {};
-        userInfo[userID].password = address.query.Npwd;
-        userInfo[userID].email = address.query.Email;
-
-        pages.loginDetails.push(userInfo);
-        fs.writeFile('./notice_files/dataBase/loginDetails.json',JSON.stringify(pages.loginDetails));      
+        pages.loginDetails[userID] = {};
+        pages.loginDetails[userID].password = address.query.Npwd;
+        pages.loginDetails[userID].email = address.query.Email;
+        fs.writeFile('./notice_files/dataBase/loginDetails.json',JSON.stringify(pages.loginDetails));
         res.write(pages.home);   
     }
     res.end();
