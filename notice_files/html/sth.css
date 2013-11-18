@@ -1,0 +1,23 @@
+body
+{
+	background-image:url('back.jpg');
+}
+h1
+{
+color:#0404B4;
+text-align:center;
+}
+h2
+{
+color:green;
+text-align:center;
+}
+h3
+{
+color:#BF00FF;
+}
+p
+{
+font-family:"Times New Roman";
+font-size:20px;
+}

@@ -1,7 +1,11 @@
 <html>
-<body bgcolor = "#40adad" text = "white">
+<head>
+	<title>New User</title>>
+	<link rel="stylesheet" type="text/css" href="sth.css">
+</head>
+<body>
 	<div >
-	    <form action = "signup" method="get">
+	    <form action = "/" method="get">
 			<h1><b>NOTICE BOARD</b><h1><br/>
 	   		<input type="submit" value="Log into existing account " style="float: right;">
 	    </form>
@@ -20,7 +24,8 @@
 	  	<input type="password" name="Cpwd" required = "true"placeholder="Confirm Password" style="float: center;" size = "40"><br><br>
 	  	<input type = "submit" value ="Sign Up" onclick = ""></input>
 	  	</form>
-	  	{Error}
 	</div>	
+	<div id = "error" style={status} align = "centre"><h1>{Error}<hi></div>
+</body>
 </body>
 </html>
