@@ -1,0 +1,46 @@
+<html>
+  <head>
+    <title>myNoticeBoard</title>
+    <link rel="stylesheet" type="text/css" href="sth.css">
+  </head>
+  <body>
+    </br></br>
+    <fieldset id = "logInOption" style={status1}>
+      <legend align ="center">
+        <h1>Welcome to <b>Notice board</b>. Log In, Sign Up</h1>
+      </legend>
+      <form action = "signUp" method="get">
+        <h3><b>MY NOTICEBOARD</b></h3><button type = "submit">Sign up</button>
+      </form>
+      <form action = "login" method="get">
+        <h3>
+          <input type="submit" value="LogIn" style="float: right;" onclick="check(this.form)"/>
+          <input type="password" name="password" value="" style="float:right;"/>
+          <label for="Password" style="float: right">Password: </label>
+          <input type="text" name="userID" value="" style="float:right;"/>
+          <label for="UserId" style="float: right">UserId: </label>
+        </h3>
+      </form>
+    </fieldset>
+    <div id = "loggedInOptions" style={status3}>
+      <b><a href="/see">View all notices </a></b></br>
+      <b><a href="/post">Post your notice </a></b>
+    </div>
+    <div  id = 'logout', style = {status2}>   
+      <form action = "logout" method="get">
+        <input type="submit" value="LogOut" style="float: right;" />
+      </form>
+    </div>
+    <form>
+      <img border="2" src="/images/bg.jpg" width="1240" height="450">
+    </form>
+
+    <script language="javascript">
+      function check(form){
+      if(form.UID.value == "" || form.pswrd.value == "")
+      alert("Enter Password or Username")
+      }
+    </script>
+   <br/><br/>
+  </body>
+</html>
