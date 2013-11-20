@@ -1,0 +1,30 @@
+<html>
+<head>
+	<title>New User</title>
+	<script type="text/javascript" src = supportScripts.js></script>	
+	<link rel="stylesheet" type="text/css" href="sth.css">
+</head>
+<body>
+	<div >
+	    <form action = "/" method="get">
+			<h1><b>NOTICE BOARD</b><h1><br/>
+	   		<input type="submit" value="Log into existing account " style="float: right;">
+	    </form>
+	</div>
+	<div align ="center" >
+		<hr/>
+		<h1><b>Sign Up</b>
+		<br><br>
+		<form method ="post" action = "verify"> 	
+	  	<input type="text" ID = "userName" name="uName"  required = "true" placeholder="Enter Your name here" style="float: center;" size = "40" autocomplete="off" autofocus>
+	  	<br><br>
+	  	<input type="email" name="Email" required = "true" placeholder="Enter  email address to get verification code" style="float: center;" size = "40" autocomplete="off">
+	  	<br><br>
+	  	<input type="email" name="cEmail" required = "true" placeholder="Re-enter your email address" style="float: center;" size = "40" onblur ="return checkMail()" autocomplete="off">
+	  	<br><br>
+	  	<input type = "submit" value ="Send Verification code"></input>
+	  	<br><br>
+		</form>
+	</div>	
+</body>
+</html>

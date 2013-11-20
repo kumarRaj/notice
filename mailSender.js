@@ -8,9 +8,9 @@ mailSender.transport = nodemailer.createTransport("SMTP", {
     });
 
 mailSender.message = {
-    from: 'step2noticeboard <sender@example.com>',
-    to: '"Receiver Name" <surajmbabar@gmail.com>',
+    from: 'STEP 2 noticeboard <sender@example.com>',
     subject: 'verification code', //
-    text: 'sdg345dfh56!@#$'
+    text: 'please enter this code into verification field\r\n'+
+    'verification code = RANDOMCODE'
   };
 exports.mailSender = mailSender;
