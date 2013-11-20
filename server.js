@@ -10,7 +10,8 @@ var out_of_stock = function(req,res){
 
 var service = function(req, res){
   address = url.parse(req.url,true);
-  path[address.pathname] && path[address.pathname](req,res) || out_of_stock(req,res);
+  var method = path[address.pathname] || out_of_stock;
+  method(req,res);
 };
 
 http.createServer(service).listen(8085);

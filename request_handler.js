@@ -108,19 +108,22 @@ handler['/verify'] = function(req,res){
     req.on('end',function(data){
         if(!pages.loginDetails[userDetails.uName])
             pages.loginDetails[userDetails.uName]={};
-        mailSender.message.to = userDetails.Email.replace(/%40/,'@');
-        var notice =mailSender.message.text;
+        userDetails.Email = userDetails.Email.replace(/%40/,'@');
+        mailSender.message.to =userDetails.Email; 
+        var notice = mailSender.message.text;
         mailSender.message.text = notice.replace(/RANDOMCODE/,code);
         mailSender.transport.sendMail(mailSender.message, function(error){
             if(error){
                 console.log('Error occured\r\n'+error.message);
                 return;
             }
+            
         });
+        res.writeHead(200, {"Content-Type":"text/html"});
+        res.write(pages.signUp.replace('NAME',userDetails.uName).replace('EMAIL',userDetails.Email));
+        res.end();
         mailSender.message.text = notice;
-    });
-    res.write(pages.signUp);
-    res.end();
+    }); 
 };
 handler['/signUpInfo'] = function(req,res){
     var userDetails = {};
@@ -134,8 +137,6 @@ handler['/signUpInfo'] = function(req,res){
     req.setEncoding('utf-8');
     req.on('data',getUserInfo);
     req.on('end',function(data){
-    if(!pages.loginDetails[userDetails.uName]){
-        pages.loginDetails[userDetails.uName]={};
         pages.loginDetails[userDetails.uName].password = userDetails.Npwd;
         pages.loginDetails[userDetails.uName].email = userDetails.Email;
         (pages.home = pages.home.replace(/none/g,'block')) &&
@@ -150,4 +151,10 @@ handler['/signUpInfo'] = function(req,res){
     });    
     res.end();
 };
+handler['/supportScripts.js'] = function(req,res){
+    res.writeHead(200,{'Content-Type': contentType.css});
+    res.write(pages.supportScriptsJs);
+    res.end();
+};
+
 exports.path = handler;

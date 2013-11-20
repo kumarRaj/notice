@@ -2,12 +2,13 @@ var fs = require('fs');
 var pages = {};
 var noticeExists = fs.existsSync('./notice_files/dataBase/notices.json');
 var loginExists = fs.existsSync('./notice_files/dataBase/loginDetails.json');
+var signUpExists = fs.existsSync('./notice_files/dataBase/signUpData.json');
 
 pages.viewnotice = fs.readFileSync("./notice_files/html/viewNotice.html",'utf-8')
 pages.addNotice_html = fs.readFileSync('./notice_files/html/addnotice.html');
 pages.noticeBoard = noticeExists && JSON.parse(fs.readFileSync('./notice_files/dataBase/notices.json','utf-8')) || [];
 pages.loginDetails = loginExists && JSON.parse(fs.readFileSync('./notice_files/dataBase/loginDetails.json','utf-8'))||{};
-
+pages.signUpData = signUpExists && JSON.parse(fs.readFileSync('./notice_files/dataBase/signUpData.json','utf-8'))||{};
 pages.signUp =fs.readFileSync("./notice_files/html/signUp.html",'utf-8');
 pages.signUp = pages.signUp.replace(/{status}/,"display:none;");
 
@@ -23,4 +24,5 @@ pages.back_jpg = fs.readFileSync('./notice_files/images/back.jpg');
 pages.bg_jpg = fs.readFileSync('./notice_files/images/bg.jpg');        
 
 pages.sth_css =fs.readFileSync("./notice_files/html/sth.css",'utf-8');
+pages.supportScriptsJs =fs.readFileSync("./notice_files/html/supportScripts.js",'utf-8');
 exports.pages = pages;
