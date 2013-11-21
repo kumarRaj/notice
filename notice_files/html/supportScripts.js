@@ -7,3 +7,7 @@ function checkMail(){
 	}
 	else return true;
 };
+function check(form){
+      if(form.UID.value == "" || form.pswrd.value == "")
+      alert("Enter Password or Username")
+};

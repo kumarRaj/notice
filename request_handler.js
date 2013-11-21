@@ -61,8 +61,9 @@ handler['/login'] = function(req,res){
 };
 handler['/post'] = function(req,res){
     res.writeHead(200, {"Content-Type":contentType.html});
-        res.write(pages.addNotice_html);
-          res.end();
+
+    res.write(pages.addNotice_html);
+    res.end();
     return 1;
 };
 handler['/see'] = function(req,res){
@@ -70,8 +71,7 @@ handler['/see'] = function(req,res){
     var notices = [];
     pages.noticeBoard.reverse();
           pages.noticeBoard.forEach(function(notice,index){
-         notice = "ID : " + (index + 1) + '\n' +
-         "Author : " + notice.sender + '\n' +
+         notice = "Author : " + notice.sender + '\n' +
          "Date : " + notice.date + '\n' +
          "Subject : " + notice.subject + '\n' +
          notice.message + '\n';
@@ -105,8 +105,9 @@ handler['/verify'] = function(req,res){
     };
     req.setEncoding('utf-8');
     req.on('data',getUserInfo);
+    res.writeHead(200, {"Content-Type":"text/html"});
     req.on('end',function(data){
-        if(!pages.loginDetails[userDetails.uName])
+        if(!pages.loginDetails[userDetails.uName]){
             pages.loginDetails[userDetails.uName]={};
         userDetails.Email = userDetails.Email.replace(/%40/,'@');
         mailSender.message.to =userDetails.Email; 
@@ -116,13 +117,15 @@ handler['/verify'] = function(req,res){
             if(error){
                 console.log('Error occured\r\n'+error.message);
                 return;
-            }
-            
+            }            
         });
-        res.writeHead(200, {"Content-Type":"text/html"});
-        res.write(pages.signUp.replace('NAME',userDetails.uName).replace('EMAIL',userDetails.Email));
-        res.end();
         mailSender.message.text = notice;
+        res.write(pages.signUp.replace('NAME',userDetails.uName).replace('EMAIL',userDetails.Email));
+        }
+        else
+        res.write(pages.verification);
+    }
+        res.end();
     }); 
 };
 handler['/signUpInfo'] = function(req,res){
@@ -143,10 +146,6 @@ handler['/signUpInfo'] = function(req,res){
         (pages.home = pages.home.replace(/block/,'none')); 
     console.log(userDetails.Email);
         fs.writeFile('./notice_files/dataBase/loginDetails.json',JSON.stringify(pages.loginDetails));
-        res.write(pages.home);
-    }
-    else 
-        (pages.home = pages.home.replace(/Id =\"NameError\" hidden = \"true\"/,'Id =\"NameError\"')) &&
         res.write(pages.home);
     });    
     res.end();

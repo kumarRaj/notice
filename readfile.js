@@ -1,24 +1,30 @@
-var fs = require('fs');
-var pages = {};
-var noticeExists = fs.existsSync('./notice_files/dataBase/notices.json');
-var loginExists = fs.existsSync('./notice_files/dataBase/loginDetails.json');
-var signUpExists = fs.existsSync('./notice_files/dataBase/signUpData.json');
+var fs = require('fs'); 
+var pages = {}; // object for storing pages requisted by browser
+var path = {};	// object for storing path of required files to load server
 
-pages.viewnotice = fs.readFileSync("./notice_files/html/viewNotice.html",'utf-8')
-pages.addNotice_html = fs.readFileSync('./notice_files/html/addnotice.html');
-pages.noticeBoard = noticeExists && JSON.parse(fs.readFileSync('./notice_files/dataBase/notices.json','utf-8')) || [];
-pages.loginDetails = loginExists && JSON.parse(fs.readFileSync('./notice_files/dataBase/loginDetails.json','utf-8'))||{};
-pages.signUpData = signUpExists && JSON.parse(fs.readFileSync('./notice_files/dataBase/signUpData.json','utf-8'))||{};
-pages.signUp =fs.readFileSync("./notice_files/html/signUp.html",'utf-8');
-pages.signUp = pages.signUp.replace(/{status}/,"display:none;");
-
-pages.verification =fs.readFileSync("./notice_files/html/verification.html",'utf-8');
-pages.verification = pages.verification.replace(/{status}/,"display:none;");
-
-pages.home = fs.readFileSync("./notice_files/html/home.html",'utf-8');
-pages.home = pages.home.replace(/{status1}/,"display:block;");
-pages.home = pages.home.replace(/{status2}/,"display:none;");
-pages.home = pages.home.replace(/{status3}/,"display:none;");
+				//storing path for each file
+path.home = "./notice_files/html/home.html";		
+path.viewnotice = "./notice_files/html/viewNotice.html";
+path.addNotice_html = './notice_files/html/addnotice.html';
+path.signUp = "./notice_files/html/signUp.html";
+path.verification = "./notice_files/html/verification.html";
+path.noticesJson = './notice_files/dataBase/notices.json';
+path.loginJson = './notice_files/dataBase/loginDetails.json';
+path.signUpJson = './notice_files/dataBase/signUpData.json';
+				//checking for existence of files
+var noticeExists = fs.existsSync(path.noticesJson);
+var loginExists = fs.existsSync(path.loginJson);
+var signUpExists = fs.existsSync(path.signUpJson);
+				//reading html pages from file system
+pages.home = fs.readFileSync(path.home,'utf-8');
+pages.viewnotice = fs.readFileSync(path.viewnotice,'utf-8');
+pages.addNotice_html = fs.readFileSync(path.addNotice_html,'utf-8');
+pages.signUp =fs.readFileSync(path.signUp,'utf-8');
+pages.verification = fs.readFileSync(path.verification,'utf-8');
+			//reading database files
+pages.noticeBoard = noticeExists && JSON.parse(fs.readFileSync(path.noticesJson,'utf-8')) || [];
+pages.loginDetails = loginExists && JSON.parse(fs.readFileSync(path.loginJson,'utf-8'))||{};
+pages.signUpData = signUpExists && JSON.parse(fs.readFileSync(path.signUpJson,'utf-8'))||{};
 
 pages.back_jpg = fs.readFileSync('./notice_files/images/back.jpg');
 pages.bg_jpg = fs.readFileSync('./notice_files/images/bg.jpg');        

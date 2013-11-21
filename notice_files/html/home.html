@@ -1,46 +1,34 @@
 <html>
   <head>
     <title>myNoticeBoard</title>
+    <script type="text/javascript" src = "supportScripts.js"></script>  
     <link rel="stylesheet" type="text/css" href="sth.css">
   </head>
   <body>
-    </br></br>
-    <fieldset id = "logInOption" style={status1}>
+    <fieldset id = "logInOption" style="display:block;">
       <legend align ="center">
         <h1>Welcome to <b>Notice board</b>. Log In, Sign Up</h1>
       </legend>
-      <form action = "signUp" method="get">
-        <h3><b>MY NOTICEBOARD</b></h3><button type = "submit">Sign up</button>
-      </form>
-      <form action = "login" method="get">
-        <h3>
-          <input type="submit" value="LogIn" style="float: right;" onclick="check(this.form)"/>
-          <input type="password" name="password" value="" style="float:right;"/>
-          <label for="Password" style="float: right">Password: </label>
-          <input type="text" name="userID" value="" style="float:right;"/>
-          <label for="UserId" style="float: right">User Name: </label>
-        </h3>
+      <form method="get">
+        <button type = "submit" formaction = "signUp" height = "100" width = "100">Sign up</button>
+        <div align = "right">  
+          <h3>
+          <label for="UserId" >User Name: </label>
+          <input type="text" name="userID" value="" />
+          <label for="Password" >Password: </label>
+          <input type="password" name="password" value="" />
+          <input type="submit" value="LogIn" onclick="check(this.form)" formaction = "login"/>
+          </h3>
+        </div> 
       </form>
     </fieldset>
-    <div id = "loggedInOptions" style={status3}>
-      <b><a href="/see">View all notices </a></b></br>
-      <b><a href="/post">Post your notice </a></b>
+    <div id = "loggedInOptions" style= "display:none;">
+      <b><a href="/see"><button>View all notices</button> </a></b>
+      <b><a href="/post"><button>Post your notice</button> </a></b>
     </div>
-    <div  id = 'logout', style = {status2}>   
-      <form action = "logout" method="get">
-        <input type="submit" value="LogOut" style="float: right;" />
-      </form>
+    <div align = "right" id = 'logout' style = "display:none;">   
+      <b><a href="/logout"><button>LogOut</button> </a></b>
     </div>
-    <form>
-      <img border="2" src="/images/bg.jpg" width="1240" height="450">
-    </form>
-
-    <script language="javascript">
-      function check(form){
-      if(form.UID.value == "" || form.pswrd.value == "")
-      alert("Enter Password or Username")
-      }
-    </script>
-   <br/><br/>
+      <img border="4" src="/images/bg.jpg" width="1140" height="450">
   </body>
 </html>
