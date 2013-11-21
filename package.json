@@ -1,3 +1,7 @@
 {
-	"nodemailer":"*"
+	"devDependencies":{
+		"chai": "*",
+		"mocha": "*",
+		"nodemailer":"*"
+	}
 }

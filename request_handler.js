@@ -124,9 +124,8 @@ handler['/verify'] = function(req,res){
         }
         else
         res.write(pages.verification);
-    }
-        res.end();
-    }); 
+    });
+    res.end();
 };
 handler['/signUpInfo'] = function(req,res){
     var userDetails = {};
