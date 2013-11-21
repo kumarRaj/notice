@@ -2,6 +2,7 @@
 	"devDependencies":{
 		"chai": "*",
 		"mocha": "*",
-		"nodemailer":"*"
+		"nodemailer":"*",
+		"mocha-phantomjs":"*"
 	}
 }
