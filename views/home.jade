@@ -1,0 +1,28 @@
+extends layout
+
+block content
+ table
+  head
+    title Notice Board
+  body
+    p welcome to notice board
+    form(method='post', action='add_notice')
+     input(type='text', placeholder='subject', name='subject')
+     div
+       textarea(name = 'content', placeholder='content')
+     div
+      input(type='submit', value='save')
+    h2 Notices
+    h3 Total notices are #{notices.length}
+    table
+     tr
+      th sender
+      th subject
+      th content
+      th time
+     -each notice in notices
+      tr
+       td #{notice.sender}
+       td #{notice.subject}
+       td #{notice.content}
+       td #{notice.time}

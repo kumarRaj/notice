@@ -1,7 +1,0 @@
-    var errorMsg="passwords or Email Addresses do not match";
-    var address = url.parse(req.url,true);
-    if(address.query.Npwd!=address.query.Cpwd || address.query.Email!=address.query.cEmail){
-        (pages.signUp = pages.signUp.replace(/none/,"block")) &&
-            (pages.signUp =pages.signUp.replace(/{Error}/,errorMsg));
-        res.write(pages.signUp);
-    }
