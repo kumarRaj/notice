@@ -23,7 +23,7 @@ exports.login = function(req,res){
 };
 
 exports.home = function(req, res){ 
-    console.log('cookie',req.cookie);
+    // console.log('cookie',req.cookie);
     var userId = req.headers.cookie &&
     req.headers.cookie.split('=')[1];     
     var profile =  userId && users[userId];
@@ -32,7 +32,6 @@ exports.home = function(req, res){
 }; 
 exports.add_notice = function(req, res){     
 	var notice = req.body;
-	console.log(notice);     
 	notice.time = new Date();     
 	notice.sender =req.headers.cookie.split('=')[1];     
 	notices.unshift(notice);
@@ -42,4 +41,3 @@ exports.add_notice = function(req, res){
 exports.logout = function(req,res){
 	visitLogin(req,res);
 };
-
